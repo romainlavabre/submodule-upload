@@ -5,9 +5,12 @@ import org.romainlavabre.upload.exception.NotInitializedException;
 public class UploadConfigurer {
     private static UploadConfigurer INSTANCE;
     protected      UploadProvider   uploadProvider = UploadProvider.AWS_S3;
-    protected      String           awsS3BucketName;
-    protected      String           awsS3PublicKey;
-    protected      String           awsS3PrivateKey;
+    protected      String           bucketName;
+    protected      String           username;
+    protected      String           password;
+    protected      String           endpoint;
+    protected      String           projectName;
+    protected      String           region;
 
 
     public UploadConfigurer() {
@@ -52,8 +55,8 @@ public class UploadConfigurer {
     }
 
 
-    protected String getAwsS3BucketName() {
-        return awsS3BucketName;
+    protected String getBucketName() {
+        return bucketName;
     }
 
 
@@ -61,48 +64,86 @@ public class UploadConfigurer {
      * Sets the AWS S3 bucket name for the UploadConfigurer.
      * Find it on <a href="https://s3.console.aws.amazon.com/s3/home">AWS</a>
      *
-     * @param awsS3BucketName the name of the AWS S3 bucket to be set
+     * @param bucketName the name of the AWS S3 bucket to be set
      * @return the modified UploadConfigurer instance
      */
-    public UploadConfigurer setAwsS3BucketName( String awsS3BucketName ) {
-        this.awsS3BucketName = awsS3BucketName;
+    public UploadConfigurer setBucketName( String bucketName ) {
+        this.bucketName = bucketName;
 
         return this;
     }
 
 
-    protected String getAwsS3PublicKey() {
-        return awsS3PublicKey;
+    public String getUsername() {
+        return username;
     }
 
 
     /**
      * Sets the AWS S3 public key for the UploadConfigurer.
      *
-     * @param awsS3PublicKey the public key to be set for AWS S3
+     * @param username the public key to be set for AWS S3
      * @return the modified UploadConfigurer instance with the AWS S3 public key set
      */
-    public UploadConfigurer setAwsS3PublicKey( String awsS3PublicKey ) {
-        this.awsS3PublicKey = awsS3PublicKey;
-
+    public UploadConfigurer setUsername( String username ) {
+        this.username = username;
         return this;
     }
 
 
-    protected String getAwsS3PrivateKey() {
-        return awsS3PrivateKey;
+    protected String getPassword() {
+        return password;
     }
 
 
     /**
      * Sets the AWS S3 private key for the UploadConfigurer.
      *
-     * @param awsS3PrivateKey the private key to be set for AWS S3
+     * @param password the private key to be set for AWS S3
      * @return the modified UploadConfigurer instance with the AWS S3 private key set
      */
-    public UploadConfigurer setAwsS3PrivateKey( String awsS3PrivateKey ) {
-        this.awsS3PrivateKey = awsS3PrivateKey;
+    public UploadConfigurer setPassword( String password ) {
+        this.password = password;
 
+        return this;
+    }
+
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+
+    /**
+     * Optional : Only if you use a provider other than AWS
+     *
+     * @param endpointUrl
+     * @return
+     */
+    public UploadConfigurer setEndpoint( String endpointUrl ) {
+        this.endpoint = endpointUrl;
+        return this;
+    }
+
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+
+    public UploadConfigurer setProjectName( String projectName ) {
+        this.projectName = projectName;
+        return this;
+    }
+
+
+    public String getRegion() {
+        return region;
+    }
+
+
+    public UploadConfigurer setRegion( String region ) {
+        this.region = region;
         return this;
     }
 
