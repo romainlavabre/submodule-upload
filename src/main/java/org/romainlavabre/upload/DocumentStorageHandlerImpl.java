@@ -23,13 +23,31 @@ public class DocumentStorageHandlerImpl implements DocumentStorageHandler {
 
 
     @Override
+    public boolean create( String bucket, String path, byte[] bytes ) {
+        return documentStorageHandlerOpenstack.create( bucket, path, bytes );
+    }
+
+
+    @Override
     public boolean remove( String path ) {
         return documentStorageHandlerOpenstack.remove( path );
     }
 
 
     @Override
+    public boolean remove( String bucket, String path ) {
+        return documentStorageHandlerOpenstack.remove( bucket, path );
+    }
+
+
+    @Override
     public byte[] getContent( String path ) {
         return documentStorageHandlerOpenstack.getContent( path );
+    }
+
+
+    @Override
+    public byte[] getContent( String bucket, String path ) {
+        return documentStorageHandlerOpenstack.getContent( bucket, path );
     }
 }

@@ -34,7 +34,20 @@ public class Openstack implements DocumentStorageHandler {
     public boolean create( String path, byte[] bytes ) {
         connect();
 
-        ObjectApi objectApi = client.getObjectApi( UploadConfigurer.get().getRegion(), UploadConfigurer.get().getBucketName() );
+        ObjectApi objectApi = client.getObjectApi( UploadConfigurer.get().getRegion(), UploadConfigurer.get().getFirstBucketName() );
+        Payload   payload   = newByteSourcePayload( wrap( bytes ) );
+
+        objectApi.put( path, payload );
+
+        return true;
+    }
+
+
+    @Override
+    public boolean create( String bucket, String path, byte[] bytes ) {
+        connect();
+
+        ObjectApi objectApi = client.getObjectApi( UploadConfigurer.get().getRegion(), bucket );
         Payload   payload   = newByteSourcePayload( wrap( bytes ) );
 
         objectApi.put( path, payload );
@@ -47,7 +60,17 @@ public class Openstack implements DocumentStorageHandler {
     public boolean remove( String path ) {
         connect();
 
-        client.getObjectApi( UploadConfigurer.get().getRegion(), UploadConfigurer.get().getBucketName() ).delete( path );
+        client.getObjectApi( UploadConfigurer.get().getRegion(), UploadConfigurer.get().getFirstBucketName() ).delete( path );
+
+        return true;
+    }
+
+
+    @Override
+    public boolean remove( String bucket, String path ) {
+        connect();
+
+        client.getObjectApi( UploadConfigurer.get().getRegion(), bucket ).delete( path );
 
         return true;
     }
@@ -58,7 +81,19 @@ public class Openstack implements DocumentStorageHandler {
         connect();
 
         try {
-            return client.getObjectApi( UploadConfigurer.get().getRegion(), UploadConfigurer.get().getBucketName() ).get( path ).getPayload().openStream().readAllBytes();
+            return client.getObjectApi( UploadConfigurer.get().getRegion(), UploadConfigurer.get().getFirstBucketName() ).get( path ).getPayload().openStream().readAllBytes();
+        } catch ( Throwable e ) {
+            throw new HttpInternalServerErrorException( "UNABLE_TO_READ_FILE" );
+        }
+    }
+
+
+    @Override
+    public byte[] getContent( String bucket, String path ) {
+        connect();
+
+        try {
+            return client.getObjectApi( UploadConfigurer.get().getRegion(), bucket ).get( path ).getPayload().openStream().readAllBytes();
         } catch ( Throwable e ) {
             throw new HttpInternalServerErrorException( "UNABLE_TO_READ_FILE" );
         }

@@ -2,10 +2,13 @@ package org.romainlavabre.upload;
 
 import org.romainlavabre.upload.exception.NotInitializedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UploadConfigurer {
     private static UploadConfigurer INSTANCE;
     protected      UploadProvider   uploadProvider = UploadProvider.AWS_S3;
-    protected      String           bucketName;
+    protected      List< String >   bucketName     = new ArrayList();
     protected      String           username;
     protected      String           password;
     protected      String           endpoint;
@@ -55,8 +58,13 @@ public class UploadConfigurer {
     }
 
 
-    protected String getBucketName() {
+    protected List< String > getBucketNames() {
         return bucketName;
+    }
+
+
+    public String getFirstBucketName() {
+        return bucketName.getFirst();
     }
 
 
@@ -68,7 +76,7 @@ public class UploadConfigurer {
      * @return the modified UploadConfigurer instance
      */
     public UploadConfigurer setBucketName( String bucketName ) {
-        this.bucketName = bucketName;
+        this.bucketName.add( bucketName );
 
         return this;
     }

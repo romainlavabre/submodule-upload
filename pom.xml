@@ -6,7 +6,7 @@
 
     <groupId>org.romainlavabre</groupId>
     <artifactId>upload</artifactId>
-    <version>4.1.0</version>
+    <version>4.2.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
