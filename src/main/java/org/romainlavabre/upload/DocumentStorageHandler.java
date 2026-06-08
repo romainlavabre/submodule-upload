@@ -66,4 +66,29 @@ public interface DocumentStorageHandler {
      * @return Array of byte in server
      */
     byte[] getContent( String bucket, String path );
+
+
+    /**
+     * Generate a temporary (pre-signed) link allowing a direct access to the file
+     * without going through your application.
+     * <br/>
+     * Only if you are using a single bucket, otherwise use getTemporaryLink( String bucket, String path, long expirationInSeconds )
+     *
+     * @param path                Location on server
+     * @param expirationInSeconds Lifetime of the link in seconds
+     * @return The temporary URL
+     */
+    String getTemporaryLink( String path, long expirationInSeconds );
+
+
+    /**
+     * Generate a temporary (pre-signed) link allowing a direct access to the file
+     * without going through your application.
+     *
+     * @param bucket              Bucket name
+     * @param path                Location on server
+     * @param expirationInSeconds Lifetime of the link in seconds
+     * @return The temporary URL
+     */
+    String getTemporaryLink( String bucket, String path, long expirationInSeconds );
 }

@@ -14,6 +14,7 @@ public class UploadConfigurer {
     protected      String           endpoint;
     protected      String           projectName;
     protected      String           region;
+    protected      String           temporaryUrlKey;
 
 
     public UploadConfigurer() {
@@ -152,6 +153,26 @@ public class UploadConfigurer {
 
     public UploadConfigurer setRegion( String region ) {
         this.region = region;
+        return this;
+    }
+
+
+    protected String getTemporaryUrlKey() {
+        return temporaryUrlKey;
+    }
+
+
+    /**
+     * Optional : secret key used to sign temporary (pre-signed) links.
+     * <br/>
+     * If provided and the storage account does not have a temporary URL key yet,
+     * it will be set automatically on the first link generation.
+     *
+     * @param temporaryUrlKey the secret key used to sign temporary links
+     * @return the modified UploadConfigurer instance
+     */
+    public UploadConfigurer setTemporaryUrlKey( String temporaryUrlKey ) {
+        this.temporaryUrlKey = temporaryUrlKey;
         return this;
     }
 

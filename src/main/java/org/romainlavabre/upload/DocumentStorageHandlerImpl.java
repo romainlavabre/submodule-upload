@@ -50,4 +50,16 @@ public class DocumentStorageHandlerImpl implements DocumentStorageHandler {
     public byte[] getContent( String bucket, String path ) {
         return documentStorageHandlerOpenstack.getContent( bucket, path );
     }
+
+
+    @Override
+    public String getTemporaryLink( String path, long expirationInSeconds ) {
+        return documentStorageHandlerOpenstack.getTemporaryLink( path, expirationInSeconds );
+    }
+
+
+    @Override
+    public String getTemporaryLink( String bucket, String path, long expirationInSeconds ) {
+        return documentStorageHandlerOpenstack.getTemporaryLink( bucket, path, expirationInSeconds );
+    }
 }
